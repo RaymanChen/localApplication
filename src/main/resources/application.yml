@@ -2,10 +2,10 @@ spring:
   ai:
     deepseek:
       base-url: https://api.deepseek.com
-      api-key: {key to be replaced}
+      api-key: {to_be_replaced}
       chat:
         base-url: https://api.deepseek.com
-        api-key: {key to be replaced}
+        api-key: {to_be_replaced}
         model: deepseek-chat
         temperature: 0.7
         max-tokens: 2048
@@ -19,3 +19,10 @@ springdoc:
   swagger-ui:
     enabled: true
     path: /swagger-ui/index.html
+secure:
+  ignored:
+    urls:
+      - /v3/api-docs/**
+      - /swagger-ui/**
+      - /swagger-resources/**
+      - /actuator/**
