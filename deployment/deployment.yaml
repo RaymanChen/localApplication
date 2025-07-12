@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: local-application
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: local-application
+  template:
+    metadata:
+      labels:
+        app: local-application
+    spec:
+      containers:
+      - name: local-application
+        image: 0.0.0.0:5050/local-application-image:v1.0
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: local-application-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8080
+    targetPort: 8080
+  selector:
+    app: local-application
+---
