@@ -4,6 +4,7 @@ import chenjun.test.auth.SecurityConfig;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -28,6 +29,7 @@ public class AppConfig {
                                 .name("Authorization")
                                 .scheme("bearer")
                 ))
+                .addSecurityItem(new SecurityRequirement().addList("openApiSecurityScheme"))
                 .info(new Info().title("DeepSeek Chat API")
                         .description("API for interacting with the DeepSeek chat model")
                         .version("1.0.0"));

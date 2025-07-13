@@ -38,6 +38,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-log4j2:3.5.2")
     implementation("org.projectlombok:lombok:1.18.38")
 
+    annotationProcessor("org.projectlombok:lombok:1.18.38")
+
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 }

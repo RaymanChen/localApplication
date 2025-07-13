@@ -6,12 +6,11 @@ import org.springframework.stereotype.Component;
 import javax.crypto.SecretKey;
 import java.util.Date;
 
-@Component
 public class JwtUtil {
 
     private static final SecretKey SECRET_KEY = Jwts.SIG.HS256.key().build();
 
-    public String generateToken(String username) {
+    public static String generateToken(String username) {
         return Jwts.builder()
                 .subject(username)
                 .issuedAt(new Date())
@@ -20,7 +19,7 @@ public class JwtUtil {
                 .compact();
     }
 
-    public String extractUsername(String token) {
+    public static String extractUsername(String token) {
         return Jwts.parser()
                 .verifyWith(SECRET_KEY)
                 .build()
@@ -29,7 +28,7 @@ public class JwtUtil {
                 .getSubject();
     }
 
-    public boolean isTokenExpired(String token) {
+    public static boolean isTokenExpired(String token) {
         Date expiration = Jwts.parser()
                 .verifyWith(SECRET_KEY)
                 .build()
@@ -39,7 +38,7 @@ public class JwtUtil {
         return expiration.before(new Date());
     }
 
-    public boolean validateToken(String token, String username) {
+    public static boolean validateToken(String token, String username) {
         String extractedUsername = extractUsername(token);
         return (extractedUsername.equals(username) && !isTokenExpired(token));
     }
