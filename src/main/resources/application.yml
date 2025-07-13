@@ -2,10 +2,10 @@ spring:
   ai:
     deepseek:
       base-url: https://api.deepseek.com
-      api-key: {to_be_replaced}
+      api-key: ${DEEPSEEK_API_KEY}
       chat:
         base-url: https://api.deepseek.com
-        api-key: {to_be_replaced}
+        api-key: ${DEEPSEEK_API_KEY}
         model: deepseek-chat
         temperature: 0.7
         max-tokens: 2048
@@ -26,3 +26,27 @@ secure:
       - /swagger-ui/**
       - /swagger-resources/**
       - /actuator/**
+management:
+  info:
+    env:
+      enabled: true
+    defaults:
+      enabled: true
+    git:
+      mode: full
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      baseUrl: /actuator
+  endpoint:
+    health:
+      show-details: always
+    info:
+      enabled: true
+    shutdown:
+      enabled: true
+logging:
+  level:
+    root: INFO
+#    org.springframework.boot.actuate: DEBUG

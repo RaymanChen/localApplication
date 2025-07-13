@@ -1,10 +1,12 @@
 plugins {
     id("org.springframework.boot") version "3.5.2"
     id("java")
+    id("com.gorylenko.gradle-git-properties") version "2.5.0"
 }
 
 group = "chenjun.test"
 version = "1.0-SNAPSHOT"
+description = "Local Application for Learning Purposes"
 
 repositories {
     maven {
@@ -37,6 +39,7 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt-jackson:0.12.6")
     implementation("org.springframework.boot:spring-boot-starter-log4j2:3.5.2")
     implementation("org.projectlombok:lombok:1.18.38")
+    implementation("org.springframework.boot:spring-boot-starter-actuator:3.5.2")
 
     annotationProcessor("org.projectlombok:lombok:1.18.38")
 
@@ -48,6 +51,11 @@ tasks.withType<Wrapper> {
     gradleVersion = "8.14.2"
     distributionUrl = "https://mirrors.cloud.tencent.com/gradle/gradle-8.14.2-bin.zip"
 }
+
 tasks.test {
     useJUnitPlatform()
+}
+
+springBoot {
+    buildInfo()
 }
