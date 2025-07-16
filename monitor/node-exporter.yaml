@@ -5,7 +5,7 @@ metadata:
   namespace: monitor
 spec:
   selector:
-    matachLabels:
+    matchLabels:
       app: node-exporter
   template:
     metadata:
