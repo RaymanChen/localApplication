@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: elasticsearch
+  namespace: logging
+spec:
+  serviceName: elasticsearch
+  replicas: 2
+  selector:
+    matchLabels:
+      app: elasticsearch
+  template:
+    metadata:
+      labels:
+        app: elasticsearch
+    spec:
+      containers:
+      - name: elasticsearch
+        image: elasticsearch:9.0.3
+        ports:
+        - containerPort: 9200
+          name: http
+        - containerPort: 9300
+          name: transport
+        env:
+          - name: ES_JAVA_OPTS
+            value: "-Xms512m -Xmx512m"
+        volumeMounts:
+          - name: config
+            mountPath: /usr/share/elasticsearch/config/elasticsearch.yml
+            subPath: elasticsearch.yml
+          - name: data
+            mountPath: /usr/share/elasticsearch/data
+      volumes:
+      - name: config
+        configMap:
+          name: elasticsearch-config
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 10Gi
